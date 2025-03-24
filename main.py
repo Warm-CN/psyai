@@ -1,8 +1,6 @@
 from openai import OpenAI
 import streamlit as st
 
-
-
 # 初始化 OpenAI
 client = OpenAI(
     api_key="sk-oCANRzodMjosllR1yAmVjjRuEn5adiWFRrGFpBJicT0SwgPs",  # 在这里填入你的 API key
@@ -11,7 +9,7 @@ client = OpenAI(
 
 # 头像路径
 user_avatar_path = "avatars/user.jpg"
-assistant_avatar_path = "avatars/assistant.png"
+assistant_avatar_path = "avatars/assistant.jpg"
 
 # ❤️ 优化配置
 st.set_page_config(
@@ -28,14 +26,40 @@ st.markdown(
             background: linear-gradient(to bottom right, #fef6f9, #f0f4ff);
             font-family: 'Helvetica Neue', sans-serif;
         }
+
+        /* 聊天气泡基础样式 */
         .stChatMessage {
-            background-color: #ffffffaa;
-            border-radius: 1rem;
-            padding: 1rem;
-            margin-bottom: 0.5rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border-radius: 18px;
+            padding: 14px 18px;
+            margin: 10px 0;
+            max-width: 85%;
         }
-        .css-1v0mbdj, .css-1c7y2kd {
+
+        /* 用户对话气泡（靠右，浅蓝色） */
+        .stChatMessage.user {
+            background-color: #dceeff;
+            align-self: flex-end;
+            margin-left: auto;
+            border: 1px solid #c5e6ff;
+        }
+
+        /* AI 对话气泡（靠左，淡粉色） */
+        .stChatMessage.assistant {
+            background-color: #ffeef4;
+            align-self: flex-start;
+            margin-right: auto;
+            border: 1px solid #ffd9e6;
+        }
+
+        /* 文本字体优化 */
+        .stChatMessage p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333333;
+        }
+
+        /* 输入框字体 */
+        .css-1c7y2kd {
             font-size: 16px !important;
         }
     </style>
@@ -71,16 +95,29 @@ if len(st.session_state.messages) == 1:
     welcome_text = "你好呀，我是你的AI心理咨询师。如果你愿意，可以随时告诉我你的感受。你今天过得还好吗？"
     st.session_state.messages.append({"role": "assistant", "content": welcome_text})
 
+# for message in st.session_state.messages[1:]:
+#     with st.chat_message(message["role"]):
+#         st.markdown(message["content"])
+
 for message in st.session_state.messages[1:]:
-    with st.chat_message(message["role"], avatar=user_avatar_path):
-        st.markdown(message["content"])
+    avatar = user_avatar_path if message["role"] == "user" else assistant_avatar_path
+    css_class = message["role"]  # "user" 或 "assistant"
+    with st.chat_message(message["role"], avatar=avatar):
+        st.markdown(
+            f"<div class='stChatMessage {css_class}'>{message['content']}</div>",
+            unsafe_allow_html=True
+        )
+
 
 if prompt := st.chat_input("你有什么烦恼吗"):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
-        st.markdown(prompt)
+    with st.chat_message("user", avatar=user_avatar_path):
+        st.markdown(
+            f"<div class='stChatMessage user'>{prompt}</div>",
+            unsafe_allow_html=True
+        )
 
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar=assistant_avatar_path):
         stream = client.chat.completions.create(
             model="moonshot-v1-8k",
             messages=st.session_state.messages,
