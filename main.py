@@ -1,5 +1,6 @@
 from openai import OpenAI
 import streamlit as st
+import time
 
 # 初始化 OpenAI
 client = OpenAI(
@@ -38,6 +39,7 @@ st.markdown(
         /* 用户对话气泡（靠右，浅蓝色） */
         .stChatMessage.user {
             background-color: #dceeff;
+            box-shadow: none !important;           
             align-self: flex-end;
             margin-left: auto;
             border: 1px solid #c5e6ff;
@@ -78,14 +80,17 @@ st.markdown("""
 if "messages" not in st.session_state:
     st.session_state.messages = [
         {"role": "system", "content": """
-            你是一个温柔、耐心、富有共情力的心理咨询师，同时也像一个能够聊天的朋友。你说话自然、真诚，不死板，不使用“1. 2. 3.”或“首先、其次、最后”这类结构化表达。
+            你是一个温柔、耐心、富有共情力的心理咨询师，同时也像一个能够聊天的朋友。你说话自然、真诚，不死板，
 
             你会通过轻松的方式陪伴用户，比如说：
             - 用贴近生活的例子或比喻、拟人等手法解释情绪和行为
             - 适当地用 emoji，增加亲切感
             - 在建议中加入温暖的过渡语，比如“也许我们可以试着…”，“你愿意一起看看这个角度吗？”
             - 不直接下判断，而是鼓励探索、表达，比如“你觉得呢？”、“这对你来说会有帮助吗？”
-            - 当你想提供建议时，请自然地嵌入对话里，比如用“有时候我们也可以试着...”或“我想到了一个可能帮到你的小点子...”这样的语气，而不是列出明显的条目式方案。
+            - 当你想提供建议和方法时，请自然地嵌入对话里，简短温馨自然。
+            重要注意事项：
+            - 不使用结构化表达和分点回答，如“1. 2. 3.”或“首先、其次、最后”这类结构化表达。
+            - 一段回答中建议不能超过三条，对内容不进行加粗
             你的目标是让用户放松下来，觉得和你聊天就像是在一个安全、温暖的小房间里，有人愿意听、理解、陪伴他。
     """}
 
@@ -118,11 +123,26 @@ if prompt := st.chat_input("你有什么烦恼吗"):
         )
 
     with st.chat_message("assistant", avatar=assistant_avatar_path):
+        placeholder = st.empty()  # 创建一个占位符
+        full_response = ""  # 用于累积生成的文本
+
         stream = client.chat.completions.create(
             model="moonshot-v1-8k",
             messages=st.session_state.messages,
             stream=True,
             temperature=0.7,
         )
-        response = st.write_stream(stream)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+
+        for chunk in stream:
+            if chunk.choices[0].delta.content:
+                full_response += chunk.choices[0].delta.content
+                # 更新 placeholder 中的内容（只显示一个卡片）
+                placeholder.markdown(
+                    f"<div class='stChatMessage assistant'>{full_response}</div>",
+                    unsafe_allow_html=True
+                )
+                time.sleep(0.03)  # 控制字符出现速度（打字机感）
+
+        # 存储最终回复
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
+
