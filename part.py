@@ -32,6 +32,7 @@ def run_chat_interface(
         page_icon: str,
         welcome_title: str,
         welcome_message: str,
+        first_message: str,
         system_prompt: str,
         session_key: str,
         custom_css: str,
@@ -55,8 +56,7 @@ def run_chat_interface(
 
     # 如果只有系统消息，发送欢迎语
     if len(messages) == 1:
-        messages.append({"role": "assistant",
-                         "content": "你好呀，我是你的AI心理咨询师。如果你愿意，可以随时告诉我你的感受。你今天过得还好吗？"})
+        messages.append({"role": "assistant", "content": first_message})
 
     for message in messages[1:]:
         avatar = avatar_user if message["role"] == "user" else avatar_assistant
