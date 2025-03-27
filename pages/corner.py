@@ -28,7 +28,7 @@ thinking_messages = [
 
 # ❤️ 优化配置
 st.set_page_config(
-    page_title="心理小站",
+    page_title="心语角落",
     page_icon="🌸",
     layout="centered",
 )
@@ -84,7 +84,7 @@ st.markdown(
 
 # 欢迎标题 + 小描述
 st.markdown("""
-## 🌸 心理小站
+## 🌸 心语角落
 <div style='color: #666; font-size: 17px;'>
 这里是一个暖暖的地方，就像一个灵魂床头的小阁间，我会带着小点调皮，一点点地带你找到心的平静💭
 </div>
@@ -126,7 +126,7 @@ for message in st.session_state.messages[1:]:
             unsafe_allow_html=True
         )
 
-if prompt := st.chat_input("你有什么烦恼吗"):
+if prompt := st.chat_input("……"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user", avatar=user_avatar_path):
         st.markdown(
