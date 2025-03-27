@@ -6,6 +6,25 @@ st.set_page_config(
     layout="centered",
 )
 
+# 自定义样式：加宽按钮、圆角、间距
+st.markdown("""
+    <style>
+    .stButton > button {
+        width: 100%;
+        border-radius: 10px;
+        padding: 0.6em 1em;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    .stCaption {
+        font-size: 15px !important;
+        color: #666 !important;
+        margin-top: -10px;
+        margin-bottom: 30px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # 欢迎语
 st.markdown("""
 # 🌸 欢迎来到心理小站
@@ -17,7 +36,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# 场景选择
+# 分隔线
+st.markdown("---")
 st.markdown("## 🧭 请选择一个让你安心的小站：")
 
 # 场景按钮列表（横向布局）
@@ -30,7 +50,7 @@ with col1:
 
     if st.button("🌌 梦境小屋 · 荣格"):
         st.switch_page("pages/jung.py")
-    st.caption("探索潜意识的符号世界，让梦为你指引方向 ✨")
+    st.caption("探索潜意识的符号世界，让梦与回忆为你指引方向 ✨")
 
 with col2:
     if st.button("🌅 倾听角落 · 罗杰斯"):
