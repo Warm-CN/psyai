@@ -13,7 +13,7 @@ custom_css = """
     <style>
     .stApp {
         background: linear-gradient(to bottom right, #fdf6ec, #fffaf0);
-        font-family: 'Georgia', serif;
+        font-family: 'Arial', sans-serif;
     }
 
     .stChatMessage {

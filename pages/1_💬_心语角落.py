@@ -14,7 +14,7 @@ custom_css = """
     <style>
         .stApp {
             background: linear-gradient(to bottom right, #fef6f9, #f0f4ff);
-            font-family: 'Helvetica Neue', sans-serif;
+            font-family: 'Arial', sans-serif;
         }
 
         /* 聊天气泡基础样式 */
