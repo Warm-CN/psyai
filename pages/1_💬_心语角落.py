@@ -72,8 +72,8 @@ initial_prompt = """
 
 run_chat_interface(
     page_title="心语角落",
-    page_icon="🌸",
-    welcome_title="🌸 心语角落",
+    page_icon="💬",
+    welcome_title="💬 心语角落",
     welcome_message="这里是一个暖暖的地方，就像一个灵魂床头的小阁间，我会带着小点调皮，一点点地带你找到心的平静💭",
     first_message="你好呀，我是你的AI心理咨询师。如果你愿意，可以随时告诉我你的感受。你今天过得还好吗？",
     system_prompt=initial_prompt,

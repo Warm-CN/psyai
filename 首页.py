@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="心理小站 - 首页",
+    page_title="心理小站",
     page_icon="🌸",
     layout="centered",
 )
@@ -44,19 +44,19 @@ st.markdown("## 🧭 请选择一个让你安心的小站：")
 col1, col2 = st.columns(2)
 
 with col1:
-    if st.button("💬 心理小站"):
-        st.switch_page("pages/corner.py")
+    if st.button("💬 心语角落"):
+        st.switch_page("pages/1_💬_心语角落.py")
     st.caption("和温柔又理解你的 AI 心理师聊聊心情 🌱")
 
     if st.button("🌌 心灵迷宫 · 荣格"):
-        st.switch_page("pages/jung.py")
+        st.switch_page("pages/2_🌌_心灵迷宫 · 荣格.py")
     st.caption("探索潜意识的符号世界，让原型与回忆为你指引方向 ✨")
 
 with col2:
     if st.button("🌅 倾听角落 · 罗杰斯"):
-        st.switch_page("pages/rogers.py")
+        st.switch_page("pages/3_🌅_倾听角落 · 罗杰斯.py")
     st.caption("在被理解的空间里，让真实的自己慢慢展开 💛")
 
     if st.button("📘 思维工坊 · 贝克"):
-        st.switch_page("pages/beck.py")
+        st.switch_page("pages/3_📘_思维工坊 · 贝克.py")
     st.caption("轻轻整理那些影响情绪的思维模式，一点点找回清晰和平静 🛠️")
