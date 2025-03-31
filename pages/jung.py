@@ -1,4 +1,4 @@
-from part import run_chat_interface
+from moduls.part import run_chat_interface
 from openai import OpenAI
 
 client = OpenAI(
@@ -73,7 +73,7 @@ jung_welcome = "你好呀，我在这里，像一面温柔的镜子。最近，�
 
 
 run_chat_interface(
-    page_title="心灵迷宫 · 荣格",
+    page_title="心灵迷宫",
     page_icon="🌌",
     welcome_title="🌌 心灵迷宫 · 荣格",
     welcome_message="""

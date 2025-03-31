@@ -1,4 +1,4 @@
-from part import run_chat_interface
+from moduls.part import run_chat_interface
 from openai import OpenAI
 
 
