@@ -11,10 +11,10 @@ custom_css = """
         }
 
         .stChatMessage {
-            border-radius: 18px;
-            padding: 14px 18px;
-            margin: 10px 0;
-            max-width: 85%;
+            border-radius: 16px;
+            padding: 16px 20px; /* 调大内边距，让气泡更宽松 */
+            margin: 12px 0;
+            max-width: 90%; /* 让气泡稍微占据更多空间 */
         }
 
         .stChatMessage.user {
@@ -32,9 +32,9 @@ custom_css = """
         }
 
         .stChatMessage p {
-            font-size: 16px;
-            line-height: 1.7;
-            color: #2d2d40;
+            font-size: 18px; /* 增大字体，提高可读性 */
+            line-height: 1.8;
+            color: #333333;
         }
 """
 
