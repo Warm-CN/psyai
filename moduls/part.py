@@ -9,7 +9,7 @@ def summarize_history(history, summarizer):
     messages += history
 
     response = summarizer.chat.completions.create(
-        model="moonshot-v1-8k",
+        model="glm-4-flash",
         messages=messages,
         temperature=0.3,
     )
@@ -45,6 +45,10 @@ def run_chat_interface(
         api_key=api_key,  # 在这里填入你的 API key
         base_url="https://open.bigmodel.cn/api/paas/v4/",
     )
+
+    # 记忆设置
+    message_threshold = 15
+    latest_message = 10
 
     st.set_page_config(page_title=page_title, page_icon=page_icon, layout="centered")
     st.markdown(custom_css, unsafe_allow_html=True)
@@ -91,15 +95,15 @@ def run_chat_interface(
             system_msg = messages[0]
             non_system_msgs = messages[1:]
 
-            if len(non_system_msgs) > 15:
-                summary = summarize_history(non_system_msgs[:-10], client)
+            if len(non_system_msgs) > message_threshold:
+                summary = summarize_history(non_system_msgs[:-latest_message], client)
                 dynamic_system = {
                     "role": "system",
                     "content": system_msg["content"] + "\n\n以下是你和用户之间的简要对话背景：\n" + summary
                 }
-                send_messages = [dynamic_system] + non_system_msgs[-10:]
+                send_messages = [dynamic_system] + non_system_msgs[-latest_message:]
             else:
-                send_messages = [system_msg] + non_system_msgs[-15:]
+                send_messages = [system_msg] + non_system_msgs[-message_threshold:]
 
             stream = client.chat.completions.create(
                 model="glm-4-flash",
