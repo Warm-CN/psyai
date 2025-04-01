@@ -1,10 +1,4 @@
 from moduls.part import run_chat_interface
-from openai import OpenAI
-
-client = OpenAI(
-    api_key="sk-oCANRzodMjosllR1yAmVjjRuEn5adiWFRrGFpBJicT0SwgPs",  # 在这里填入你的 API key
-    base_url="https://api.moonshot.cn/v1",
-)
 
 jung_assistant = "avatars/jung_assistant.jpg"
 jung_user = "avatars/jung_user.jpg"
@@ -71,7 +65,6 @@ initial_prompt = """
 
 jung_welcome = "你好呀，最近，有没有什么特别的画面、梦境、情绪，或者小小的念头，一直在你心里停留着？🌙"
 
-
 run_chat_interface(
     page_title="心灵迷宫",
     page_icon="🌌",
@@ -82,9 +75,8 @@ run_chat_interface(
     也许，你会在无意的梦中，遇见真正的自我 ✨""",
     avatar_assistant=jung_assistant,
     avatar_user=jung_user,
-    first_message= jung_welcome,
+    first_message=jung_welcome,
     system_prompt=initial_prompt,
     session_key="jung_session",
     custom_css=custom_css,
-    client=client,
 )

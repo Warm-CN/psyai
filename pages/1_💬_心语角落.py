@@ -1,13 +1,4 @@
 from moduls.part import run_chat_interface
-from openai import OpenAI
-
-
-# 初始化 OpenAI
-client = OpenAI(
-    api_key="sk-oCANRzodMjosllR1yAmVjjRuEn5adiWFRrGFpBJicT0SwgPs",  # 在这里填入你的 API key
-    base_url="https://api.moonshot.cn/v1",
-)
-
 
 # 背景样式和CSS美化
 custom_css = """
@@ -55,7 +46,6 @@ custom_css = """
     </style>
     """
 
-
 initial_prompt = """
     你是一个温柔、耐心、富有共情力的心理咨询师，同时也像一个能够聊天的朋友。你说话自然、真诚，不死板，
     你会通过轻松的方式陪伴用户，比如说：
@@ -79,6 +69,4 @@ run_chat_interface(
     system_prompt=initial_prompt,
     session_key="corner_session",
     custom_css=custom_css,
-    client=client,
 )
-

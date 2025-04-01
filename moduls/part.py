@@ -38,8 +38,14 @@ def run_chat_interface(
         custom_css: str,
         avatar_user: str = "avatars/user.jpg",
         avatar_assistant: str = "avatars/assistant.jpg",
-        client: OpenAI = None
 ):
+    # 加载密钥
+    api_key = st.secrets["GLM_FLASH_API_KEY"]
+    client = OpenAI(
+        api_key=api_key,  # 在这里填入你的 API key
+        base_url="https://open.bigmodel.cn/api/paas/v4/",
+    )
+
     st.set_page_config(page_title=page_title, page_icon=page_icon, layout="centered")
     st.markdown(custom_css, unsafe_allow_html=True)
 
@@ -96,7 +102,7 @@ def run_chat_interface(
                 send_messages = [system_msg] + non_system_msgs[-15:]
 
             stream = client.chat.completions.create(
-                model="moonshot-v1-8k",
+                model="glm-4-flash",
                 messages=send_messages,
                 stream=True,
                 temperature=0.7,

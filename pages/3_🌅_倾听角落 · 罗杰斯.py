@@ -1,10 +1,4 @@
 from moduls.part import run_chat_interface
-from openai import OpenAI
-
-client = OpenAI(
-    api_key="sk-oCANRzodMjosllR1yAmVjjRuEn5adiWFRrGFpBJicT0SwgPs",  # 在这里填入你的 API key
-    base_url="https://api.moonshot.cn/v1",
-)
 
 rogers_assistant = "avatars/rogers_assistant.jpg"
 rogers_user = "avatars/rogers_user.jpg"
@@ -79,7 +73,6 @@ run_chat_interface(
     avatar_user=rogers_user,
     first_message=rogers_welcome,
     system_prompt=initial_prompt,
-    session_key="jung_session",
+    session_key="rogers_session",
     custom_css=custom_css,
-    client=client,
 )

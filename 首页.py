@@ -58,5 +58,5 @@ with col2:
     st.caption("在被理解的空间里，让真实的自己慢慢展开 💛")
 
     if st.button("📘 思维工坊 · 贝克"):
-        st.switch_page("pages/3_📘_思维工坊 · 贝克.py")
+        st.switch_page("pages/4_📘_思维工坊 · 贝克.py")
     st.caption("轻轻整理那些影响情绪的思维模式，一点点找回清晰和平静 🛠️")
