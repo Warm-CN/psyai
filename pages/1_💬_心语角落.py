@@ -34,7 +34,7 @@ custom_css = """
 
         /* 文本字体优化 */
         .stChatMessage p {
-            font-size: 18px; /* 增大字体，提高可读性 */
+            font-size: 16px !important; /* 增大字体，提高可读性 */
             line-height: 1.8;
             color: #333333;
         }
